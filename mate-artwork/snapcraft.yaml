@@ -1,0 +1,41 @@
+name: mate-artwork
+version: 1.15.0~git
+summary: MATE Desktop Environment Artwork
+description: |
+   The MATE Desktop Environment is the continuation of GNOME 2. It
+   provides an intuitive and attractive desktop environment using traditional
+   metaphors for Linux and other Unix-like operating systems.
+   MATE is under active development to add support for new technologies while
+   preserving a traditional desktop experience.
+confinement: devmode
+
+  mate-icon-theme:
+    plugin: autotools
+    source: https://github.com/mate-desktop/mate-icon-theme.git
+    after: [ mate-common ]
+    install-via: prefix
+    build-packages:
+      - gettext
+      - hicolor-icon-theme
+      - icon-naming-utils
+      - intltool
+      - librsvg2-bin
+      - pkg-config
+    stage-packages:
+      - hicolor-icon-theme
+      - libgtk2.0-bin
+      - librsvg2-common
+
+  integration:
+    plugin: nil
+    after: [ mate-icon-theme ]
+    stage-packages:
+      - dmz-cursor-theme
+      - light-themes
+      - ttf-ubuntu-font-family
+      - ubuntu-mate-default-settings
+      - ubuntu-mate-icon-themes
+      - ubuntu-mate-themes
+    snap:
+      - usr/share
+      - -usr/share/doc
