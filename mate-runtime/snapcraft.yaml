@@ -23,7 +23,7 @@ apps:
     plugs:
       - home
       - x11
-      
+
 parts:
   mate-common:
     plugin: autotools
@@ -65,44 +65,28 @@ parts:
       - libxml2
       - hicolor-icon-theme
 
-  mate-user-guide:
+# Fails to build, see README.md
+  libmatekbd:
     plugin: autotools
-    source: https://github.com/mate-desktop/mate-user-guide.git
-    after: [ mate-common ]
+    source: https://github.com/mate-desktop/libmatekbd.git
+    after: [ mate-common, mate-desktop, gtkconf ]
+    configflags:
+      - --disable-silent-rules
+      - --disable-static
+      - --enable-introspection
+      - --with-gtk=3.0
     install-via: prefix
     build-packages:
-      - gettext
-      - gtk-doc-tools
       - intltool
-      - libtool
-      - pkg-config
+      - libgirepository1.0-dev
       - libglib2.0-dev
-      - yelp-tools
+      - libgtk-3-dev
+      - libxklavier-dev
     stage-packages:
-      - yelp
-
-# Fails to build, see README.md
-#  libmatekbd:
-#    plugin: autotools
-#    source: https://github.com/mate-desktop/libmatekbd.git
-#    after: [ mate-common, mate-desktop, gtkconf ]
-#    configflags:
-#      - --disable-silent-rules
-#      - --disable-static
-#      - --enable-introspection
-#      - --with-gtk=3.0
-#    install-via: prefix
-#    build-packages:
-#      - intltool
-#      - libgirepository1.0-dev
-#      - libglib2.0-dev
-#      - libgtk-3-dev
-#      - libxklavier-dev
-#    stage-packages:
-#      - iso-codes
-#      - libglib2.0-0
-#      - libgtk-3-0
-#      - libxklavier16
+      - iso-codes
+      - libglib2.0-0
+      - libgtk-3-0
+      - libxklavier16
 
   libmatemixer:
     plugin: autotools
